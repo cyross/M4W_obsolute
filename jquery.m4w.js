@@ -155,7 +155,7 @@
       }, options);
       return Sound.load(o);
     },
-    sound: function(options){
+    se: function(options){
       var o = $.extend({
         bgm: false
       }, options);
@@ -794,7 +794,8 @@
    */
   Sound.load = function(options){
     var o = $.extend({
-      bgm: false
+      bgm: false,
+      body: $("body")
     }, options);
     var $area = $("<audio />");
     var defer = $.Deferred();
@@ -811,14 +812,16 @@
       $src.attr("src", url);
       $src.appendTo($area);
     }
-    $area.appendTo(options.body);
+    $area.appendTo(o.body);
 
-    $("audio#"+o.id)[0].addEventListener("loadedmetadata", (function(){
+    $area[0].addEventListener("loadedmetadata", (function(){
       var d = defer;
       var snd_id = o.id;
       var type = (o.bgm==true ? "bgm" : "se");
       return function(){ d.resolve({type: type, id: snd_id, value: new Sound(snd_id)}); };
     }).bind(this)());
+
+    this.tag = $area[0];
 
     return defer.promise();
   };
@@ -827,7 +830,7 @@
    * 音声を再生する<br>最初から再生する(pauseした時も)
    */
   Sound.prototype.play = function(){
-    var v = $("audio#"+this.id)[0];
+    var v = $("audio#"+this.id);
     if(this.is_play){
       v[0].pause();
     }
