@@ -133,7 +133,7 @@
    * 再生している位置を返す<br>単位：秒
    */
   Video.prototype.pos = function(){
-    return $("video#"+this.id).currentTime;
+    return $("video#"+this.id)[0].currentTime;
   };
 
   /**
@@ -208,6 +208,14 @@
     this.pause();
     this.hide();
     this.remove();
+  };
+
+  /**
+   * エラー状態かどうかを返す
+   * @return true/false
+   */
+  Video.prototype.is_error = function(){
+    return $("video#"+this.id)[0].error != null;
   };
 
   window.m4w = $.extend({Video: Video}, window.m4w);

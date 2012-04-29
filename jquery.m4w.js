@@ -906,6 +906,14 @@
   };
 
   /**
+   * エラー状態かどうかを返す
+   * @return true/false
+   */
+  Sound.prototype.is_error = function(){
+    return $("audio#"+this.id)[0].error != null;
+  };
+
+  /**
    * @constructor
    * @class 複数スレッドを一括管理・操作
    * @param interval スレッドを更新する間隔<br>ミリ秒で指定
