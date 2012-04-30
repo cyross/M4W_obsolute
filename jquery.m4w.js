@@ -295,6 +295,17 @@
     }
   };
 
+  /** 画面の横幅・高さを変更する
+   * @param {int} width 横幅
+   * @param {int} height 高さ
+   */
+  Screen.prototype.resize = function(width, height){
+    var w = parseInt(width);
+    var h = parseInt(height);
+    this.body.css("width", w);
+    this.body.css("height", h);
+  };
+
   /**
    * レイヤー(canvasブロック)を作成する<br>生成されたcanvasブロックはcssのpositionがabsoluteになっていることに注意
    * @constructor
@@ -535,7 +546,6 @@
   /** 背景の横幅・高さを変更する
    * @param {int} width 横幅
    * @param {int} height 高さ
-   * @param {boolean} widt_content trueのときは描画領域の大きさも指定の値で設定する
    */
   Background.prototype.resize = function(width, height){
     var w = parseInt(width);
@@ -1121,13 +1131,12 @@
 
   /**
    * 指定のDOMオブジェクト・idに対応したScreenオブジェクトを返す
-   * @param options.id 画面のID
    * @param [options.index] DOMオブジェクトの配列のインデックス。省略時は0
    * @return Screenオブジェクト
   */
   M4W.prototype.screen = function(options){
     var o = $.extend({index: 0}, options);
-    return this.body[o.index].m4w.screen[o.id];
+    return this.body[o.index].m4w.screen;
   };
 
   /**
