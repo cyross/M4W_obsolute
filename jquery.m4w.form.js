@@ -19,6 +19,22 @@
   };
 
   /**
+   * (private)セットアップ<既定オプションの追加>
+   */
+  Form.init = function(options, append_options){
+    var o = $.extend({
+      position: "absolute",
+      z: 0,
+      left: 0,
+      top: 0,
+      body: $("body"),
+      events: { },
+      classes: []
+    }, append_options);
+    return $.extend(o, options);
+  }
+
+  /**
    * (private)セットアップ<基本情報の追加>
    */
   Form.setup = function($obj, o){
@@ -28,6 +44,7 @@
     $obj.css("top", o.top);
     $obj.appendTo(o.body);
 
+    for(var i=0; i<o.classes.length; i++){ $obj.addClass(o.classes[i]); }
     for(name in o.css){ $obj.css(name, o.css[name]); }
     for(name in o.attr){ $obj.attr(name, o.attr[name]); }
     for(name in o.events){
@@ -47,17 +64,10 @@
    * @param [options.css] CSS値をオブジェクトで指定<br>省略時は{}
    * @param [options.attr] attr値をオブジェクトで指定<br>jQueryオブジェクトを指定<br>省略時は{}
    * @param [options.events] 登録したいイベントの関数群<br>"イベント名": イベントハンドラ本体で登録する<br>省略時は{}
+   * @param [options.classes] 登録したいクラス<br>クラス名の配列で登録する<br>省略時は[]
    */
   Form.create_button = function(options){
-    var o = $.extend({
-      type: "button",
-      position: "absolute",
-      z: 0,
-      left: 0,
-      top: 0,
-      body: $("body"),
-      events: { }
-    }, options);
+    var o = Form.init(options, {type: "button"});
 
     if(!("name" in o)){ o.name = o.id; }
 
@@ -78,17 +88,10 @@
    * @param [options.css] CSS値をオブジェクトで指定<br>省略時は{}
    * @param [options.attr] attr値をオブジェクトで指定<br>jQueryオブジェクトを指定<br>省略時は{}
    * @param [options.events] 登録したいイベントの関数群<br>"イベント名": イベントハンドラ本体で登録する<br>省略時は{}
+   * @param [options.classes] 登録したいクラス<br>クラス名の配列で登録する<br>省略時は[]
    */
   Form.create_selectbox = function(options){
-    var o = $.extend({
-      options: [],
-      position: "absolute",
-      z: 0,
-      left: 0,
-      top: 0,
-      body: $("body"),
-      events: { }
-    }, options);
+    var o = Form.init(options, {options: []});
 
     if(!("name" in o)){ o.name = o.id; }
 
@@ -123,16 +126,10 @@
    * @param [options.css] CSS値をオブジェクトで指定<br>省略時は{}
    * @param [options.attr] attr値をオブジェクトで指定<br>jQueryオブジェクトを指定<br>省略時は{}
    * @param [options.events] 登録したいイベントの関数群<br>"イベント名": イベントハンドラ本体で登録する<br>省略時は{}
+   * @param [options.classes] 登録したいクラス<br>クラス名の配列で登録する<br>省略時は[]
    */
   Form.create_label = function(options){
-    var o = $.extend({
-      position: "absolute",
-      z: 0,
-      left: 0,
-      top: 0,
-      body: $("body"),
-      events: { }
-    }, options);
+    var o = Form.init(options, {});
 
     var $label = $("<span />", o);
     this.setup($label, o);
@@ -159,18 +156,10 @@
    * @param [options.css] CSS値をオブジェクトで指定<br>省略時は{}
    * @param [options.attr] attr値をオブジェクトで指定<br>jQueryオブジェクトを指定<br>省略時は{}
    * @param [options.events] 登録したいイベントの関数群<br>"イベント名": イベントハンドラ本体で登録する<br>省略時は{}
+   * @param [options.classes] 登録したいクラス<br>クラス名の配列で登録する<br>省略時は[]
    */
   Form.create_box = function(options){
-    var o = $.extend({
-      position: "absolute",
-      z: 0,
-      left: 0,
-      top: 0,
-      width: 256,
-      height: 256,
-      body: $("body"),
-      events: { }
-    }, options);
+    var o = Form.init(options, {width: 256, height: 256});
 
     var $box = $("<div />", o);
     this.setup($box, o);
