@@ -1,5 +1,5 @@
 /**
- * @fileOverview Miyako4Web(Miyako for Web)本体
+ * @fileOverview Miyako4Web(Miyako for Web)本体<br>
  * 
  * @name Miyako for Web(M4W)
  * @author Cyross Makoto (サイロス誠)
@@ -1332,6 +1332,11 @@
    * <li>Threads</li>
    * <li>Thread</li>
    * </ul>
+   * また、以下の関数が利用可能
+   * <ul>
+   * <li>is_supported</li>
+   * <li>is_smart_phone</li>
+   * </ul>
    * @example var dw = new (window).m4w.Drawer({render: function(ctx){ ctx.beginPath(); ... }});
   */
   window.m4w = {
@@ -1343,7 +1348,40 @@
     Drawer: Drawer,
     Sound: Sound,
     Threads: Threads,
-    Thread: Thread
+    Thread: Thread,
+    is_supported: function(){
+      // 非対応ブラウザは、今のところIE8以前のみ
+      var user_agent = window.navigator.userAgent.toLowerCase();
+      var version = window.navigator.appVersion.toLowerCase();
+      if(user_agent.indexOf("msie") > -1){
+        // IE6 -> false
+        if(version.indexOf("msie 6") > -1){ return false; }
+        // IE7 -> false
+        if(version.indexOf("msie 7") > -1){ return false; }
+        // IE8 -> false
+        if(version.indexOf("msie 8") > -1){ return false; }
+        // IE9以降 -> true
+      }
+      return true;
+    },
+    is_smart_phone: function(){
+      var user_agent = window.navigator.userAgent.toLowerCase();
+      var version = window.navigator.appVersion.toLowerCase();
+      // iPhone
+      if(user_agent.indexOf("iphone") > -1){ return true; }
+      // iPad
+      if(user_agent.indexOf("ipad") > -1){ return true; }
+      // iPod(touch)
+      if(user_agent.indexOf("ipod") > -1){ return true; }
+      // android端末
+      if(user_agent.indexOf("android") > -1){ return true; }
+      // blackberry
+      if(user_agent.indexOf("blackberry") > -1){ return true; }
+      // WindowsPhone端末
+      if(user_agent.indexOf("windowsphone") > -1){ return true; }
+      // その他
+      return false;
+    }
   };
   
   /**

@@ -17,3 +17,5 @@
 2012/05/01
 ・form系関数の一部リファクタリング
 ・form系関数のオプションにclasses(HTMLブロックのclass属性)を追加
+・ブラウザがサポートされているかの判別関数を追加(window.m4w.is_support)
+・スマートフォンからの接続かどうかの判別関数を追加(window.m4w.is_smart_phone)
